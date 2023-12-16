@@ -1,5 +1,5 @@
 """Report generator."""
-from typing import List, Optional, Set
+from typing import List, Set
 from collections import defaultdict
 from datetime import date, timedelta
 from calendar import month_name
