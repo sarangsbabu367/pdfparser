@@ -132,3 +132,27 @@ class Query:
         with self._engine.connect() as conn:
             result = conn.execute(stmt).fetchone()
         return None if not result else result[0]
+
+    def get_broker_level_loan_amount_with_date(self) -> List[dict]:
+        """Return array of loan amount for a broker in a day."""
+        transaction_table: Table = METADATA.tables["Transaction"]
+        rows: List[dict] = []
+        stmt = (
+            select(
+                transaction_table.columns["broker"],
+                transaction_table.columns["settlement_date"],
+                func.array_agg(transaction_table.columns["total_loan_amount"]),
+            )
+            .group_by(
+                transaction_table.columns["broker"],
+                transaction_table.columns["settlement_date"],
+            )
+            .order_by(
+                transaction_table.columns["settlement_date"].asc(),
+            )
+        )
+
+        with self._engine.connect() as conn:
+            for row in conn.execute(stmt):
+                rows.append(row._asdict())
+        return rows
