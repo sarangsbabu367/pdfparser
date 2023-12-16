@@ -14,7 +14,6 @@
       Total Loan Amount, Comm Rate, Upfront, Upfront Incl GST
 """
 from typing import TextIO, List, Tuple, Optional
-from dataclasses import dataclass
 from datetime import date
 
 from PyPDF2 import PdfReader
@@ -22,21 +21,7 @@ from PyPDF2.errors import PdfReadError
 import tabula
 from pandas.core.frame import DataFrame
 
-
-@dataclass
-class TransactionRecord:
-    app_id: int
-    xref: int
-    settlement_date: date
-    broker: str
-    sub_broker: str
-    borrower_name: str
-    description: str
-    total_loan_amount: float
-    comm_rate: float
-    upfront: float
-    upfront_incl_gst: float
-
+from pdfparser.datastructure import TransactionRecord
 
 _COLUMN_NAMES: str = (
     "AppID"

@@ -9,6 +9,8 @@ readme = "README.md"
 python = "^3.9"
 pypdf2 = "^3.0.1"
 tabula-py = "^2.9.0"
+sqlalchemy = "^2.0.23"
+psycopg2 = "^2.9.9"
 
 
 [tool.poetry.group.dev.dependencies]
